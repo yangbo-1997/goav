@@ -158,7 +158,7 @@ func (ctxt *Context) MaxChunkSize() int {
 }
 
 func (ctxt *Context) setMaxDelay(value int) {
-	ctxt.max_delay = _Ctype_int(value)
+	ctxt.max_delay = int32(value)
 }
 
 func (ctxt *Context) MaxDelay() int {
