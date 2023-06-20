@@ -131,7 +131,3 @@ func (d *DictionaryEntry) Key() string {
 func (d *DictionaryEntry) Value() string {
 	return C.GoString(d.value)
 }
-
-func AvDictAlloc() *Dictionary {
-	return (*Dictionary)(unsafe.Pointer(C.av_frame_alloc()))
-}
