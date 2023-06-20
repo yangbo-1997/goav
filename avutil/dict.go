@@ -47,7 +47,7 @@ func (d *Dictionary) AvDictCount() int {
 	return int(C.av_dict_count((*C.struct_AVDictionary)(d)))
 }
 
-func (d *Dictionary) AvDictSet(key, value string, flags int) int {
+func AvDictSet(d **Dictionary, key, value string, flags int) int {
 	Ckey := C.CString(key)
 	defer C.free(unsafe.Pointer(Ckey))
 
@@ -55,7 +55,7 @@ func (d *Dictionary) AvDictSet(key, value string, flags int) int {
 	defer C.free(unsafe.Pointer(Cvalue))
 
 	return int(C.av_dict_set(
-		(**C.struct_AVDictionary)(unsafe.Pointer(&d)),
+		(**C.struct_AVDictionary)(unsafe.Pointer(d)),
 		Ckey,
 		Cvalue,
 		C.int(flags),
@@ -130,4 +130,8 @@ func (d *DictionaryEntry) Key() string {
 
 func (d *DictionaryEntry) Value() string {
 	return C.GoString(d.value)
+}
+
+func AvDictAlloc() *Dictionary {
+	return (*Dictionary)(unsafe.Pointer(C.av_frame_alloc()))
 }
